@@ -1,0 +1,19 @@
+use dac_demo01;
+
+select count(Odate) from ORDERS where Odate = '1990-10-03';
+
+select count(distinct(City)) from CUSTOMERS where City is not null;
+
+-- Write a query that selects each customer’s smallest order. --
+select min(Amt) "Smallest Order", Cnum from ORDERS group by Cnum;
+
+-- Write a query that selects the first customer, in alphabetical order, whose name begins with G. --
+select Cname from Customers where Cname like 'G%';
+
+-- Write a query that selects the highest rating in each city. -- 
+select max(Rating) "Highest Rating", City from CUSTOMERS group by City;
+
+/* Write a query that counts the number of salespeople registering orders for each
+day. (If a salesperson has more than one order on a given day, he or she should be
+counted only once.). */
+select distinct count(Odate), Snum from ORDERS group by Odate order by Odate;  
