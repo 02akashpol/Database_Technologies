@@ -1,0 +1,14 @@
+use dac_demo01;
+
+/* Write a query that produces all pairs of salespeople who are living in the same
+city. Exclude combinations of salespeople with themselves as well as duplicate
+rows with the order reversed. */
+select distinct S1.Sname, S2.Sname from SALESPEOPLE as S1, SALESPEOPLE as S2
+	where S1.City = S2.City and S1.Sname > S2.Sname;
+    
+/* Write a query that produces the names and cities of all customers with the same
+rating as Hoffman. */
+select Cname, City from CUSTOMERS
+	where Rating =
+		(select Rating from CUSTOMERS
+			where Cname = 'Hoffman');
