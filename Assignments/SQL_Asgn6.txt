@@ -1,0 +1,24 @@
+show databases;
+
+use dac_demo01;
+
+select * from orders
+where Odate = '1990-10-03';
+
+select * from orders
+where Odate = '1990-10-04';
+
+select * from CUSTOMERS
+where Snum = '1001' or Snum = '1004';
+
+select * from CUSTOMERS where Cname >='A' and Cname <'H';
+/* select cname from CUSTOMERS where cname between 'a%' and 'h%'; */
+
+
+select * from CUSTOMERS
+where Cname like 'c%' ;
+
+select * from ORDERS 
+where not Amt = 0 or Amt = null;
+
+

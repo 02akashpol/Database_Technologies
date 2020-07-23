@@ -1,0 +1,16 @@
+
+1) Which field of the Customers table is the primary key? 
+-> Primary key from the Customers is Cnum.
+
+2) What is the 4th column of the Customers table?
+-> 4th column of the Customers table is Rating.
+
+3) What is another word for row? For column?
+-> Another words for 
+	1.Row - Tuple, Entity, Opportunity.
+	2.Column - Attribute, Method.
+
+4) Why isn’t it possible to see the first five rows of a table?
+-> Because, files store in RDBMS randomly format not connected with that respective table
+   in DB server HD and it will take different addresses for different rows. If we want print
+   any specific rows, We have to give conditions for that in clause. 

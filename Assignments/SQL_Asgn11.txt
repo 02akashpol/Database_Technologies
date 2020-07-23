@@ -1,0 +1,25 @@
+use dac_demo01;
+
+/* Write a query that uses a subquery to obtain all orders for the customer named
+Cisneros. Assume you do not know his customer number (cnum). */
+select Onum, Snum from ORDERS
+	where Cnum = 
+		(select Cnum from CUSTOMERS 
+			where Cname = 'Cisneros');
+
+/* Write a query that produces the names and ratings of all customers who have
+above-average orders. */
+select Cname, Rating from CUSTOMERS
+	where Cnum in
+		(select Cnum from ORDERS
+			where Amt > 
+				(select avg(Amt) from ORDERS));
+                
+/* Write a query that selects the total amount in orders for each salesperson for
+whom this total is greater than the amount of the largest order in the table. */
+select sum(Amt)
+	from ORDERS
+		group by Snum
+			having sum(Amt)>
+				(select max(Amt)
+					from ORDERS);
