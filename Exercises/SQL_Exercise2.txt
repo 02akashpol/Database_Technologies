@@ -1,0 +1,22 @@
+use dac_demo01;
+
+select * from SUPPLIER
+	order by City desc;
+    
+select * from PARTS
+	order by City, Pname;
+    
+select * from SUPPLIER
+	where Status between '10' and '20';
+    
+select * from PARTS
+	where Weight not between 10 and 15;
+    
+select Pname from PARTS
+	where Pname like 'S%';
+    
+select * from SUPPLIER
+	where City like 'L%';
+    
+select * from PROJECTS
+	where City like '__n%';

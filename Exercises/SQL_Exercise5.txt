@@ -1,0 +1,65 @@
+use dac_demo01;
+
+select count(*) from SUPPLIER;
+
+select count(*) from PARTS;
+
+select count(*) from PROJECTS;
+
+select count(*) from SUPPLIER_PARTS_PROJECT;
+
+ALTER TABLE SUPPLIER RENAME COLUMN `S#` TO S;
+ALTER TABLE SUPPLIER RENAME COLUMN S TO `S#`;      
+
+ALTER TABLE SUPPLIER_PARTS_PROJECT RENAME COLUMN `S#` TO S; 
+ALTER TABLE SUPPLIER_PARTS_PROJECT RENAME COLUMN S TO `S#`;
+
+-- Display the Supplier name and the Quantity sold --
+select Sname, Qty from SUPPLIER, SUPPLIER_PARTS_PROJECT
+	where SUPPLIER.`S#` = SUPPLIER_PARTS_PROJECT.`S#`;
+    
+select * from SUPPLIER;
+    
+-- Display the Part name and Quantity sold. --
+select Pname, Qty from PARTS, SUPPLIER_PARTS_PROJECT
+	where PARTS.`P#` = SUPPLIER_PARTS_PROJECT.`P#`;
+    
+-- Display the Project name and Quantity sold. --
+select Jname, Qty from PROJECTS, SUPPLIER_PARTS_PROJECT
+	where PROJECTS.`J#` = SUPPLIER_PARTS_PROJECT.`J#`;  
+    
+-- Display the Supplier name, Part name, Project name and Quantity sold. --
+select Sname, Pname, Jname, Qty from SUPPLIER, PARTS, PROJECTS, SUPPLIER_PARTS_PROJECT
+	where SUPPLIER.`S#` = SUPPLIER_PARTS_PROJECT.`S#` 
+		and PARTS.`P#` = SUPPLIER_PARTS_PROJECT.`P#` 
+			and PROJECTS.`J#` = SUPPLIER_PARTS_PROJECT.`J#`;
+            
+-- Display the Supplier name, Supplying Parts to a Project in the same City. --
+select Sname, Pname from SUPPLIER, PARTS, SUPPLIER_PARTS_PROJECT
+	where SUPPLIER.`S#` = SUPPLIER_PARTS_PROJECT.`S#`
+		and PARTS.`P#` = SUPPLIER_PARTS_PROJECT.`P#` 
+			and SUPPLIER.City = PARTS.City;
+            
+-- Display the Part name that is ‘Red’ is color, and the Quantity sold. --
+select Pname, Qty from PARTS, SUPPLIER_PARTS_PROJECT
+	where PARTS.`P#` = SUPPLIER_PARTS_PROJECT.`P#` and Color = 'R';
+    
+-- Display all the Quantity sold by Suppliers with the Status = 20. --
+select SUPPLIER.`S#`, Qty from SUPPLIER, SUPPLIER_PARTS_PROJECT
+	where SUPPLIER.`S#` = SUPPLIER_PARTS_PROJECT.`S#` and Status = '20';
+            
+-- Display all the Parts and Quantity with a Weight > 14. --
+select Pname, Qty from PARTS, SUPPLIER_PARTS_PROJECT
+	where PARTS.`P#` = SUPPLIER_PARTS_PROJECT.`P#` and Weight > 14;
+    
+-- Display all the Project names and City, which has bought more than 40 Parts. --
+select Pname, City from PARTS, SUPPLIER_PARTS_PROJECT
+	where PARTS.`P#` = SUPPLIER_PARTS_PROJECT.`P#` and Qty > 40;
+    
+-- Display all the Part names and Quantity sold that have a Weight less than 15. --
+select Pname, Qty from PARTS, SUPPLIER_PARTS_PROJECT
+	where PARTS.`P#` = SUPPLIER_PARTS_PROJECT.`P#` and Weight < 15;
+    
+-- Display all the Employee names and the name of their Departments. --
+select Empname, Deptname from SEMP 
+	left outer join SDEPT on (SEMP.Deptno = SDEPT.Deptno);
