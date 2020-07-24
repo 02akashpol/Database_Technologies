@@ -1,0 +1,35 @@
+use dac_demo01;
+
+-- Write a query that selects all customers whose ratings are equal to or greater than ANY of Cisneros’. --
+select * from CUSTOMERS
+	where Rating >=any 
+		(select Rating from CUSTOMERS
+			where Cname = 'Cisneros');
+            
+/* Write a query using ANY or ALL that will find all salespeople who have no
+customers located in their city. */
+select Snum from SALESPEOPLE 
+	where (Snum, City) not in
+			(select Snum, City from CUSTOMERS);
+            
+-- Write a query that selects all orders for amounts greater than any for the customers in London --
+select Onum, Amt from ORDERS
+	where Amt >any 
+		(select Amt from ORDERS
+			where Cnum in
+				(select Cnum from CUSTOMERS 
+					where City = 'London'));
+                    
+-- Write the above query using MIN or MAX. --
+select Onum, Amt from ORDERS
+	where Amt >=any
+		(select min(Amt) from ORDERS
+			where Cnum in
+				(select Cnum from CUSTOMERS 
+					where City = 'London'));
+
+select Onum, Amt from ORDERS
+	where Amt >=any 
+		(select min(Amt) from ORDERS, CUSTOMERS
+					where ORDERS.Cnum = CUSTOMERS.Cnum and City = 'London');
+
