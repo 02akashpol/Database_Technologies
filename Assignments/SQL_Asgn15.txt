@@ -1,0 +1,33 @@
+use dac_demo01;
+ 
+/* Assume there is a table called Multicust, with all of the same column definitions
+as Salespeople. Write a command that inserts all salespeople with more than one
+customer into this table. */
+create table MULTICASt as
+	select * from SALESPEOPLE 
+		where Snum in (select Snum from CUSTOMERS
+							having count(Snum) > 1);
+                            
+select * from MULTICAST;
+
+-- Write a command that deletes all customers with no current orders. --
+savepoint S1;
+
+delete from CUSTOMERS
+	where cnum in (select Cnum from ORDERS
+						where Cnum not in (select Cnum from CUSTOMERS));
+                        
+rollback to savepoint S1;
+
+/* Write a command that increases by twenty percent the commissions of all
+salespeople with total orders above Rs. 3,000. */
+savepoint S1;
+
+update SALESPEOPLE
+	set Comm = (Comm * (20/100)) 
+		where Snum in (select Snum from ORDERS
+							where Amt > 3000);
+                            
+rollback to savepoint S1;
+
+commit;                            
